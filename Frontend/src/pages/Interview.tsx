@@ -31,21 +31,59 @@ const QUESTION_BANK = {
   java: {
 
     beginner: [
-      "Explain OOP concepts in Java",
-      "What is JVM, JRE and JDK?",
-      "What is exception handling in Java?"
+      "What is Java? What are its main features?",
+      "What is the difference between JDK, JRE, and JVM?",
+      "What are primitive data types in Java?",
+      "What is the difference between == and equals()?",
+      "What is a class and object?",
+      "What are constructors in Java?",
+      "What is method overloading?",
+      "What is the difference between Array and ArrayList?",
+      "What is String class? Is it mutable or immutable?",
+      "What is the main method in Java?"
     ],
 
     intermediate: [
+      "What are the 4 pillars of OOP?",
+
+      "What is inheritance in Java?",
+      "What is the difference between interface and abstract class?",
+
+      "What is method overriding?",
+
+      "What are access modifiers in Java?",
+
+      "What is exception handling?",
+
+      "What is the difference between checked and unchecked exceptions?",
+
       "What is multithreading in Java?",
-      "Explain Java Collection Framework",
-      "Difference between ArrayList and LinkedList?"
+
+      "What is the difference between HashMap and HashTable?",
+
+      "What is the difference between String, StringBuilder, and StringBuffer?",
     ],
 
     advanced: [
-      "Explain Java memory management",
-      "What is garbage collection?",
-      "What are Java design patterns?"
+      "What is the Java Collections Framework?",
+
+     " How does HashMap work internally?",
+
+      "What is Garbage Collection in Java?",
+
+      "What is the difference between Comparable and Comparator?",
+
+      "What are Streams in Java 8?",
+
+      "What are Lambda expressions?",
+
+      "What is the difference between fail-fast and fail-safe iterators?",
+
+      "What is synchronization in Java?",
+
+      "What is the volatile keyword?",
+
+      "What is JDBC and how does it work?"
     ]
 
   },
@@ -53,9 +91,25 @@ const QUESTION_BANK = {
   mern: {
 
     beginner: [
-      "What is React?",
-      "What is Node.js?",
-      "What is MongoDB?"
+      "What is the MERN stack?",
+
+        "What is React?",
+
+        "What is Node.js?",
+
+        "What is Express.js?",
+
+        "What is MongoDB?",
+
+        "What is JSON?",
+
+        "What is the difference between SQL and NoSQL?",
+
+        "What is npm?",
+
+        "What is component in React?",
+
+        "What is state in React?"
     ],
 
     intermediate: [
