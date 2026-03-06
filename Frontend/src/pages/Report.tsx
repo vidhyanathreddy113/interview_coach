@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Report() {
+
   const { id } = useParams();
   const navigate = useNavigate();
 
   const sessions = JSON.parse(localStorage.getItem("sessions") || "[]");
+
   const session = sessions.find((s:any) => s.id == id);
 
   if (!session) {
@@ -19,92 +21,109 @@ export default function Report() {
 
   // performance label
   const getPerformance = () => {
-    if (session.score >= 85) return { label: "Excellent 🔥", color: "text-green-600" };
-    if (session.score >= 65) return { label: "Good 👍", color: "text-yellow-600" };
+    if (session.score >= 85)
+      return { label: "Excellent 🔥", color: "text-green-600" };
+
+    if (session.score >= 65)
+      return { label: "Good 👍", color: "text-yellow-600" };
+
     return { label: "Needs Improvement", color: "text-red-600" };
   };
 
   const perf = getPerformance();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-6">
-      <Card className="w-full max-w-xl shadow-2xl border">
-        
-        {/* HEADER */}
-        <CardHeader>
-          <CardTitle className="text-center text-2xl font-bold">
-            🤖 AI Interview Report
-          </CardTitle>
-        </CardHeader>
 
-        <CardContent className="space-y-6 text-center">
+<div className="min-h-screen bg-background p-3">
 
-          {/* overall score */}
-          <div>
-            <p className="text-muted-foreground">Overall Score</p>
-            <h1 className="text-5xl font-bold text-primary">
-              {session.score}%
-            </h1>
+<Card className="max-w-5xl mx-auto shadow-lg">
 
-            <p className={`mt-2 font-semibold ${perf.color}`}>
-              {perf.label}
-            </p>
-          </div>
+<CardHeader>
 
-          {/* detailed scores */}
-          <div className="grid grid-cols-3 gap-3 text-sm">
-            <div className="bg-muted p-3 rounded-lg">
-              <p className="font-bold">🗣 Communication</p>
-              <p className="text-lg">{session.communication || 0}%</p>
-            </div>
+<CardTitle className="text-center text-xl">
+Interview Report
+</CardTitle>
 
-            <div className="bg-muted p-3 rounded-lg">
-              <p className="font-bold">🎯 Confidence</p>
-              <p className="text-lg">{session.confidence || 0}%</p>
-            </div>
+</CardHeader>
 
-            <div className="bg-muted p-3 rounded-lg">
-              <p className="font-bold">💻 Technical</p>
-              <p className="text-lg">{session.technical || 0}%</p>
-            </div>
-          </div>
+<CardContent className="space-y-4">
 
-          {/* analytics */}
-          <div className="bg-muted/50 p-4 rounded-lg text-sm">
-            <p>⏱ Duration: {session.duration || 0} minutes</p>
-            <p>🗣 Words Spoken: {session.wordsSpoken || 0}</p>
-          </div>
+{/* SUMMARY */}
 
-          {/* ai feedback */}
-          <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg text-left">
-            <p className="font-bold mb-2 text-center">📊 AI Feedback Summary</p>
-            <p className="text-sm leading-relaxed">
-              {session.feedback ||
-                "Good attempt. Keep practicing to improve confidence and communication."}
-            </p>
-          </div>
+<div className="grid grid-cols-3 gap-3 text-center">
 
-          {/* suggestion */}
-          <div className="bg-muted p-4 rounded-lg text-sm">
-            <p className="font-semibold mb-1">💡 Improvement Tips</p>
-            <p>
-              • Speak clearly and confidently  
-              • Give structured answers (Intro → Example → Conclusion)  
-              • Maintain eye contact  
-              • Practice daily mock interviews
-            </p>
-          </div>
+<div className="bg-muted p-3 rounded-lg">
+<p className="text-xs">Communication</p>
+<p className="text-lg font-bold">{session.communication}%</p>
+</div>
 
-          {/* button */}
-          <Button
-            onClick={() => navigate("/dashboard")}
-            className="w-full text-lg"
-          >
-            Back to Dashboard
-          </Button>
+<div className="bg-muted p-3 rounded-lg">
+<p className="text-xs">Confidence</p>
+<p className="text-lg font-bold">{session.confidence}%</p>
+</div>
 
-        </CardContent>
-      </Card>
-    </div>
-  );
+<div className="bg-muted p-3 rounded-lg">
+<p className="text-xs">Technical</p>
+<p className="text-lg font-bold">{session.technical}%</p>
+</div>
+
+</div>
+
+{/* PERFORMANCE LABEL */}
+
+<div className={`text-center font-semibold ${perf.color}`}>
+Performance: {perf.label}
+</div>
+
+{/* AI SUMMARY */}
+
+<div className="bg-muted p-3 rounded-lg text-sm">
+<p className="font-semibold mb-1">AI Summary</p>
+<p>{session.feedback}</p>
+</div>
+
+{/* QUESTION ANALYSIS */}
+
+<div className="grid md:grid-cols-2 gap-3">
+
+{session.answers?.map((a:any,i:number)=>(
+
+<Card key={i} className="p-3 border">
+
+<p className="text-xs font-semibold mb-1">
+Question {i+1}
+</p>
+
+<p className="text-sm mb-1">
+{a.question}
+</p>
+
+<div className="bg-muted p-2 rounded text-xs mb-1">
+{a.answer || "No answer recorded"}
+</div>
+
+<p className="text-xs text-muted-foreground">
+AI Analysis: {a.analysis || "No analysis available"}
+</p>
+
+</Card>
+
+))}
+
+</div>
+
+<Button
+onClick={()=>navigate("/dashboard")}
+className="w-full"
+>
+Back to Dashboard
+</Button>
+
+</CardContent>
+
+</Card>
+
+</div>
+
+);
 }

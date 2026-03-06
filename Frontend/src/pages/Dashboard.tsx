@@ -52,18 +52,40 @@ export default function Dashboard() {
 
   // 🔥 start interview
   const handleStartInterview = async () => {
-    if (!targetRole.trim()) {
-      toast({ variant: "destructive", title: "Enter target role" });
-      return;
-    }
 
-    setStarting(true);
-    setTimeout(() => {
-      const sessionId = Date.now();
-      navigate(`/interview/${sessionId}`);
-      setStarting(false);
-    }, 500);
-  };
+  if (!targetRole.trim()) {
+    toast({ variant: "destructive", title: "Enter target role" });
+    return;
+  }
+
+  if (interviewType !== "hr" && !programmingLanguage) {
+    toast({
+      variant: "destructive",
+      title: "Please select programming language",
+    });
+    return;
+  }
+
+  setStarting(true);
+
+  setTimeout(() => {
+
+    const sessionId = Date.now();
+
+    navigate(`/interview/${sessionId}`, {
+      state: {
+        interviewType,
+        programmingLanguage,
+        difficulty,
+        targetRole,
+        targetCompany
+      }
+    });
+
+    setStarting(false);
+
+  }, 500);
+};
 
   const handleSignOut = async () => {
     await signOut();
@@ -151,14 +173,15 @@ export default function Dashboard() {
 
                   <div>
                     <Label>Difficulty</Label>
-                    <Select value={difficulty} onValueChange={setDifficulty}>
-                      <SelectTrigger><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="beginner">Beginner</SelectItem>
-                        <SelectItem value="intermediate">Intermediate</SelectItem>
-                        <SelectItem value="advanced">Advanced</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <select
+                      value={difficulty}
+                      onChange={(e) => setDifficulty(e.target.value)}
+                      className="w-full border rounded-md p-2"
+                    >
+                      <option value="beginner">Beginner</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="advanced">Advanced</option>
+                    </select>
                   </div>
                 </div>
 
@@ -166,12 +189,32 @@ export default function Dashboard() {
                   <div>
                     <Label>Target Role *</Label>
                     <Input value={targetRole} onChange={(e)=>setTargetRole(e.target.value)} />
-                  </div>
+                    </div>
 
-                  <div>
-                    <Label>Programming Language</Label>
-                    <Input value={programmingLanguage} onChange={(e)=>setProgrammingLanguage(e.target.value)} />
-                  </div>
+                    {interviewType !== "hr" && (
+
+                    <div>
+                      <Label>Programming Language</Label>
+
+                      <Select
+                        value={programmingLanguage}
+                        onValueChange={setProgrammingLanguage}
+                      >
+
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Language" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectItem value="java">Java</SelectItem>
+                          <SelectItem value="mern">MERN</SelectItem>
+                        </SelectContent>
+
+                      </Select>
+
+                    </div>
+
+                  )}
                 </div>
 
                 <div>

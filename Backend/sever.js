@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 // User schema
 const UserSchema = new mongoose.Schema({
-  name: String,
+ name: String,
   email: String,
   password: String
 });
