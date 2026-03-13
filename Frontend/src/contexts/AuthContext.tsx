@@ -19,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // SIGNUP
   const signUp = async (email: string, password: string, name: string) => {
     try {
-      const res = await fetch("http://localhost:5000/signup", {
+      const res = await fetch("https://interview-backend-vww6.onrender.com/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // LOGIN
   const signIn = async (email: string, password: string) => {
     try {
-      const res = await fetch("http://localhost:5000/login", {
+      const res = await fetch("https://interview-backend-vww6.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
